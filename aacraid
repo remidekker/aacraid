@@ -12,17 +12,16 @@ DESC="aacraidd"
 NAME="aacraidd"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
-
+AACRAIDD=/usr/local/bin/aacraidd
 
 case "$1" in
-  start)
+   start)
     echo "Starting script aacraidd "
-    /usr/local/bin/aacraidd
-    ;;
-  stop)
+    $AACRAIDD
+   ;;
+   stop)
         printf "%-50s" "Stopping $NAME"
             PID=`cat $PIDFILE`
-            cd $DAEMON_PATH
         if [ -f $PIDFILE ]; then
             kill -HUP $PID
             printf "%s\n" "Ok"
@@ -30,8 +29,8 @@ case "$1" in
         else
             printf "%s\n" "pidfile not found"
         fi
-;;   
-status)
+   ;;   
+   status)
         printf "%-50s" "Checking $NAME..."
         if [ -f $PIDFILE ]; then
             PID=`cat $PIDFILE`
@@ -43,11 +42,11 @@ status)
         else
             printf "%s\n" "Service not running"
         fi
-;;
-  *)
+   ;;
+   *)
     echo "Usage: /etc/init.d/aacraidd {start|stop|status}"
     exit 1
-    ;;
+   ;;
 esac
 
-exit 0
+
